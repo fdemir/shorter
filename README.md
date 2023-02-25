@@ -8,9 +8,11 @@ I am using bpaf to parse the command line arguments and some essential features 
 
 ## How it works?
 
-Shorter uses a simple algorithm to generate the shortened version of the URL. It uses the first 6 characters of the SHA256 hash of the URL. It is not a secure way to generate the shortened version of the URL, but it is simple and easy to implement. It is also easy to remember the shortened version of the URL.
+Shorter uses the md5 hash of the long url to generate a unique id. The id is then converted to base62 and the first 7 characters are used as the short url.
 
-It will save the shortened version of the URL and original URL in a file or in-memory.
+It is unlikely that two urls will have the same hash, but if it happens, the short url will be the same. In that case, the short url will be overwritten.
+
+_I will add a feature to handle collisions in the future._
 
 ## Usage
 
@@ -44,6 +46,12 @@ cargo test
 - closure: todo!
 - serde: todo!
 - construct! todo!
+
+### Todo
+
+- [ ] Add a feature to handle collisions
+- [ ] Detailed error handling
+- [ ] Command descriptions
 
 ## License
 
