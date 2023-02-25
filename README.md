@@ -53,6 +53,7 @@ cargo test
 - [ ] Add a feature to handle collisions
 - [ ] Detailed error handling
 - [ ] Command descriptions
+- [ ] Guard for invalid urls
 
 ## License
 
