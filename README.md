@@ -17,15 +17,16 @@ _I will add a feature to handle collisions in the future._
 ## Usage
 
 ```
-Usage: -s UID -g UID -d UID [-l] [-f FILE]
+Usage: COMMAND ...
 
 Available options:
-    -s, --save <UID>    Save a url
-    -g, --get <UID>     Get a url
-    -d, --delete <UID>  Delete a url
-    -l, --list          List all urls
-    -f, --file <FILE>   File to save to
-    -h, --help          Prints help information
+    -h, --help     Prints help information
+    -V, --version  Prints version information
+
+Available commands:
+    get   Get an url by uid
+    save  Save an url
+    list  List all saved urls
 ```
 
 ## Build

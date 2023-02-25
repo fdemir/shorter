@@ -88,22 +88,22 @@ impl Op {
 #[derive(Clone, Debug, Bpaf)]
 enum Op {
     #[bpaf(command)]
-    /// Get something
+    /// Get an url by uid
     Get {
         /// help here
         #[bpaf(positional)]
         uid: String,
     },
     #[bpaf(command)]
-    /// Save something
+    /// Save an url
     Save {
         /// help here
         #[bpaf(positional)]
         url: String,
     },
 
-    // List all saved items
     #[bpaf(command)]
+    /// List all saved urls
     List,
 }
 
