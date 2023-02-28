@@ -11,6 +11,7 @@ impl Op {
             Op::Get { uid } => self.get(uid),
             Op::Save { url } => self.save(url),
             Op::List => self.list(),
+            Op::Delete { uid } => self.delete(uid),
         }
     }
 
@@ -44,6 +45,15 @@ impl Op {
             Err(e) => println!("{}", storage::format_error(e)),
         }
     }
+
+    fn delete(&self, uid: &str) {
+        let storage = storage::Storage::new();
+
+        match storage.delete(uid) {
+            Ok(_) => println!("Deleted"),
+            Err(e) => println!("{}", storage::format_error(e)),
+        }
+    }
 }
 
 #[derive(Clone, Debug, Bpaf)]
@@ -61,6 +71,12 @@ enum Op {
         /// help here
         #[bpaf(positional)]
         url: String,
+    },
+    #[bpaf(command)]
+    /// Delete an url by uid
+    Delete {
+        #[bpaf(positional)]
+        uid: String,
     },
 
     #[bpaf(command)]

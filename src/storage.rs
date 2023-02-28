@@ -21,6 +21,7 @@ pub fn format_error(e: Error) -> String {
     }
 }
 
+// TODO: handle serde_json and read_to_string error cases
 impl Storage {
     // TODO: support different path and file name
     pub fn new() -> Storage {
@@ -79,5 +80,24 @@ impl Storage {
         let value: StorageData = serde_json::from_str(&file).unwrap();
 
         Ok(value)
+    }
+
+    pub fn delete(&self, uid: &str) -> Result<(), Error> {
+        if !self.exists() {
+            return Err(Error::NoFile);
+        }
+
+        let file = read_to_string(&self.file_name).unwrap();
+        let mut value: StorageData = serde_json::from_str(&file).unwrap();
+
+        match value.get(uid) {
+            Some(_) => {
+                value.remove(uid);
+                let json = serde_json::to_string(&value).unwrap();
+                std::fs::write(&self.file_name, json).unwrap();
+                Ok(())
+            }
+            None => Err(Error::NotFound),
+        }
     }
 }
