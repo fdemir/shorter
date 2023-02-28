@@ -7,35 +7,31 @@ use storage::Storage;
 
 impl Op {
     fn handle(&self) {
+        let storage = Storage::new();
+
         match self {
-            Op::Get { uid } => self.get(uid),
-            Op::Save { url } => self.save(url),
-            Op::List => self.list(),
-            Op::Delete { uid } => self.delete(uid),
+            Op::Get { uid } => self.get(uid, &storage),
+            Op::Save { url } => self.save(url, &storage),
+            Op::List => self.list(&storage),
+            Op::Delete { uid } => self.delete(uid, &storage),
         }
     }
 
-    fn get(&self, uid: &str) {
-        let storage = Storage::new();
-
+    fn get(&self, uid: &str, storage: &Storage) {
         match storage.get(uid) {
             Ok(url) => println!("{}", url),
             Err(e) => println!("{}", storage::format_error(e)),
         }
     }
 
-    fn save(&self, url: &str) {
-        let storage = storage::Storage::new();
-
+    fn save(&self, url: &str, storage: &Storage) {
         match storage.save(url) {
             Ok(uid) => println!("{}", uid),
             Err(e) => println!("{}", storage::format_error(e)),
         }
     }
 
-    fn list(&self) {
-        let storage = storage::Storage::new();
-
+    fn list(&self, storage: &Storage) {
         match storage.list() {
             Ok(list) => {
                 for (key, value) in list {
@@ -46,9 +42,7 @@ impl Op {
         }
     }
 
-    fn delete(&self, uid: &str) {
-        let storage = storage::Storage::new();
-
+    fn delete(&self, uid: &str, storage: &Storage) {
         match storage.delete(uid) {
             Ok(_) => println!("Deleted"),
             Err(e) => println!("{}", storage::format_error(e)),
