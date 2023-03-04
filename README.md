@@ -24,9 +24,10 @@ Available options:
     -V, --version  Prints version information
 
 Available commands:
-    get   Get an url by uid
-    save  Save an url
-    list  List all saved urls
+    get, g     Get an url by uid
+    save, s    Save an url
+    delete, d  Delete an url by uid
+    list, l    List all saved urls
 ```
 
 ## Build
